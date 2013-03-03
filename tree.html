@@ -1,0 +1,58 @@
+<html>
+	<head>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="data.js"></script>
+		<script type ="text/javascript">
+			classes = [];
+			c=0;
+			data = document.data.items;
+
+			function print(str){
+				var d = document.getElementById('deb1');
+				d.innerHTML += "</br>"+str;
+			}
+
+			function Class(n,prereq){
+				this.n = n;
+				this.parent = prereq;
+				this.children = [];
+				this.getChildren = function(){
+					print(this.n)
+				};
+				this.getParent = function(){
+					var prereq = this.parent;
+					print(prereq);
+					this.parent = [];
+					for(var i in classes){
+						if (prereq.indexOf(classes[i].n) != -1){
+							this.parent.push(classes[i].n);
+						}
+					}
+					print(this.parent);
+				}
+
+			}
+
+			function getClasses(){
+				for(var i in data){
+					if (data[i].type == "Class"){
+						classes.push(new Class(data[i].id,data[i].prereqs))
+					}
+				}
+				classes[6].getChildren();
+				classes[6].getParent();
+			}
+
+		</script>
+	</head>
+	<body>
+		<div onclick="getClasses()">
+			<table>
+				<tr><td id="deb1">T</td></tr>
+				<tr><td>S</td></tr>
+			</table>
+		</div>
+
+
+	</body>
+</html>
