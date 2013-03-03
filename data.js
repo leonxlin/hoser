@@ -1,4 +1,4 @@
-{
+document.data = {
     "items": [
         {
             "type": "Class",
